@@ -1,0 +1,123 @@
+{
+  "n_constituencies": 75,
+  "london_aggregate": [
+    {
+      "party": "Reform UK",
+      "vote_share": 0.33273820401712223
+    },
+    {
+      "party": "Conservative",
+      "vote_share": 0.20867995344314397
+    },
+    {
+      "party": "Labour",
+      "vote_share": 0.17462846652442338
+    },
+    {
+      "party": "Green",
+      "vote_share": 0.1359000269281385
+    },
+    {
+      "party": "Liberal Democrat",
+      "vote_share": 0.1247487863777373
+    },
+    {
+      "party": "Other",
+      "vote_share": 0.02330456270943454
+    }
+  ],
+  "tightest_races": [
+    {
+      "constituency_code": "E14001073",
+      "constituency_name": "Barking",
+      "leading_party": "Reform UK",
+      "lead_pct": 33.27382040171222,
+      "second_party": "Conservative",
+      "second_pct": 20.867995344314398,
+      "margin_pct": 12.405825057397827
+    },
+    {
+      "constituency_code": "E14001081",
+      "constituency_name": "Battersea",
+      "leading_party": "Reform UK",
+      "lead_pct": 33.27382040171222,
+      "second_party": "Conservative",
+      "second_pct": 20.867995344314398,
+      "margin_pct": 12.405825057397827
+    },
+    {
+      "constituency_code": "E14001083",
+      "constituency_name": "Beckenham and Penge",
+      "leading_party": "Reform UK",
+      "lead_pct": 33.27382040171222,
+      "second_party": "Conservative",
+      "second_pct": 20.867995344314398,
+      "margin_pct": 12.405825057397827
+    },
+    {
+      "constituency_code": "E14001085",
+      "constituency_name": "Bermondsey and Old Southwark",
+      "leading_party": "Reform UK",
+      "lead_pct": 33.27382040171222,
+      "second_party": "Conservative",
+      "second_pct": 20.867995344314398,
+      "margin_pct": 12.405825057397827
+    },
+    {
+      "constituency_code": "E14001086",
+      "constituency_name": "Bethnal Green and Stepney",
+      "leading_party": "Reform UK",
+      "lead_pct": 33.27382040171222,
+      "second_party": "Conservative",
+      "second_pct": 20.867995344314398,
+      "margin_pct": 12.405825057397827
+    }
+  ],
+  "safest_seats": [
+    {
+      "constituency_code": "E14001558",
+      "constituency_name": "Uxbridge and South Ruislip",
+      "leading_party": "Reform UK",
+      "lead_pct": 33.27382040171222,
+      "second_party": "Conservative",
+      "second_pct": 20.867995344314398,
+      "margin_pct": 12.405825057397827
+    },
+    {
+      "constituency_code": "E14001559",
+      "constituency_name": "Vauxhall and Camberwell Green",
+      "leading_party": "Reform UK",
+      "lead_pct": 33.27382040171222,
+      "second_party": "Conservative",
+      "second_pct": 20.867995344314398,
+      "margin_pct": 12.405825057397827
+    },
+    {
+      "constituency_code": "E14001563",
+      "constituency_name": "Walthamstow",
+      "leading_party": "Reform UK",
+      "lead_pct": 33.27382040171222,
+      "second_party": "Conservative",
+      "second_pct": 20.867995344314398,
+      "margin_pct": 12.405825057397827
+    },
+    {
+      "constituency_code": "E14001576",
+      "constituency_name": "West Ham and Beckton",
+      "leading_party": "Reform UK",
+      "lead_pct": 33.27382040171222,
+      "second_party": "Conservative",
+      "second_pct": 20.867995344314398,
+      "margin_pct": 12.405825057397827
+    },
+    {
+      "constituency_code": "E14001586",
+      "constituency_name": "Wimbledon",
+      "leading_party": "Reform UK",
+      "lead_pct": 33.27382040171222,
+      "second_party": "Conservative",
+      "second_pct": 20.867995344314398,
+      "margin_pct": 12.405825057397827
+    }
+  ]
+}

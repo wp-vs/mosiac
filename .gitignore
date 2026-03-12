@@ -2,9 +2,6 @@ __pycache__/
 *.pyc
 .env
 data/cache/
-data/*.xlsx
-data/*.csv
 *.egg-info/
 .venv/
 venv/
-data/cache/

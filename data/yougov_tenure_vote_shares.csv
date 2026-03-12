@@ -1,0 +1,56 @@
+party,tenure,vote_pct,sample_n
+Conservative,Own outright,20.0,5548
+Conservative,Own with mortgage,13.0,4772
+Conservative,Rent from private landlord,9.0,2486
+Conservative,Rent from LA / housing association,7.0,1894
+Conservative,Live with parents/family/friends,8.0,2158
+Labour,Own outright,10.0,5548
+Labour,Own with mortgage,15.0,4772
+Labour,Rent from private landlord,13.0,2486
+Labour,Rent from LA / housing association,12.0,1894
+Labour,Live with parents/family/friends,14.0,2158
+Liberal Democrat,Own outright,10.0,5548
+Liberal Democrat,Own with mortgage,11.0,4772
+Liberal Democrat,Rent from private landlord,9.0,2486
+Liberal Democrat,Rent from LA / housing association,6.0,1894
+Liberal Democrat,Live with parents/family/friends,11.0,2158
+SNP,Own outright,2.0,5548
+SNP,Own with mortgage,2.0,4772
+SNP,Rent from private landlord,2.0,2486
+SNP,Rent from LA / housing association,1.0,1894
+SNP,Live with parents/family/friends,3.0,2158
+Plaid Cymru,Own outright,1.0,5548
+Plaid Cymru,Own with mortgage,1.0,4772
+Plaid Cymru,Rent from private landlord,1.0,2486
+Plaid Cymru,Rent from LA / housing association,1.0,1894
+Plaid Cymru,Live with parents/family/friends,1.0,2158
+Reform UK,Own outright,27.0,5548
+Reform UK,Own with mortgage,17.0,4772
+Reform UK,Rent from private landlord,15.0,2486
+Reform UK,Rent from LA / housing association,25.0,1894
+Reform UK,Live with parents/family/friends,11.0,2158
+Green,Own outright,6.0,5548
+Green,Own with mortgage,12.0,4772
+Green,Rent from private landlord,19.0,2486
+Green,Rent from LA / housing association,8.0,1894
+Green,Live with parents/family/friends,20.0,2158
+Other,Own outright,1.0,5548
+Other,Own with mortgage,1.0,4772
+Other,Rent from private landlord,1.0,2486
+Other,Rent from LA / housing association,2.0,1894
+Other,Live with parents/family/friends,2.0,2158
+Would not vote,Own outright,8.0,5548
+Would not vote,Own with mortgage,9.0,4772
+Would not vote,Rent from private landlord,13.0,2486
+Would not vote,Rent from LA / housing association,18.0,1894
+Would not vote,Live with parents/family/friends,12.0,2158
+Don't know,Own outright,13.0,5548
+Don't know,Own with mortgage,15.0,4772
+Don't know,Rent from private landlord,13.0,2486
+Don't know,Rent from LA / housing association,15.0,1894
+Don't know,Live with parents/family/friends,13.0,2158
+Refused,Own outright,1.0,5548
+Refused,Own with mortgage,4.0,4772
+Refused,Rent from private landlord,5.0,2486
+Refused,Rent from LA / housing association,3.0,1894
+Refused,Live with parents/family/friends,8.0,2158

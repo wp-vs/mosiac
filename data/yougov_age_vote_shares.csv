@@ -1,0 +1,45 @@
+party,age_band,vote_pct,sample_n
+Conservative,18-24,7.0,1816
+Conservative,25-49,9.0,7112
+Conservative,50-64,13.0,4254
+Conservative,65+,23.0,4048
+Labour,18-24,14.0,1816
+Labour,25-49,14.0,7112
+Labour,50-64,12.0,4254
+Labour,65+,9.0,4048
+Liberal Democrat,18-24,13.0,1816
+Liberal Democrat,25-49,10.0,7112
+Liberal Democrat,50-64,9.0,4254
+Liberal Democrat,65+,10.0,4048
+SNP,18-24,1.0,1816
+SNP,25-49,2.0,7112
+SNP,50-64,2.0,4254
+SNP,65+,2.0,4048
+Plaid Cymru,18-24,1.0,1816
+Plaid Cymru,25-49,1.0,7112
+Plaid Cymru,50-64,1.0,4254
+Plaid Cymru,65+,1.0,4048
+Reform UK,18-24,5.0,1816
+Reform UK,25-49,15.0,7112
+Reform UK,50-64,26.0,4254
+Reform UK,65+,29.0,4048
+Green,18-24,28.0,1816
+Green,25-49,15.0,7112
+Green,50-64,8.0,4254
+Green,65+,4.0,4048
+Other,18-24,1.0,1816
+Other,25-49,1.0,7112
+Other,50-64,2.0,4254
+Other,65+,1.0,4048
+Would not vote,18-24,9.0,1816
+Would not vote,25-49,13.0,7112
+Would not vote,50-64,10.0,4254
+Would not vote,65+,8.0,4048
+Don't know,18-24,11.0,1816
+Don't know,25-49,15.0,7112
+Don't know,50-64,15.0,4254
+Don't know,65+,11.0,4048
+Refused,18-24,9.0,1816
+Refused,25-49,5.0,7112
+Refused,50-64,2.0,4254
+Refused,65+,1.0,4048
