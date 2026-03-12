@@ -68,12 +68,19 @@ def load_oac() -> dict:
 
     assignments = oac_data.load_oac_assignments()
     oa_input = oac_data.load_oac_input_variables()
-    oa_lookup = oac_data.load_oa_constituency_lookup()
+
+    # Try to load OA-constituency lookup (may fail if ONS portal is unreachable)
+    oa_lookup = None
+    try:
+        oa_lookup = oac_data.load_oa_constituency_lookup()
+        logger.info("OA lookup: %d rows, columns: %s", len(oa_lookup), list(oa_lookup.columns))
+    except (oac_data.LookupUnavailableError, RuntimeError) as exc:
+        logger.warning("OA-constituency lookup unavailable: %s", exc)
+        logger.warning("Will use national OAC covariance as fallback")
 
     # Inspect what we got
     logger.info("OAC assignments: %d OAs, columns: %s", len(assignments), list(assignments.columns))
     logger.info("OAC input: %d OAs × %d vars", *oa_input.shape)
-    logger.info("OA lookup: %d rows, columns: %s", len(oa_lookup), list(oa_lookup.columns))
 
     # Compute recoded demographics
     oa_demographics = oac_data.compute_oa_level_demographics(oa_input)
@@ -95,6 +102,10 @@ def build_constituency_joints(oac: dict) -> tuple[dict, dict]:
     Build the joint (age × tenure × NS-SEC) distribution for each London
     constituency using the OAC cluster mixture approach.
 
+    If the full OA-constituency lookup is available, uses per-constituency
+    OAC cluster mixtures. Otherwise falls back to the national OAC covariance
+    applied uniformly to all London constituencies.
+
     Returns:
         constituency_joints: dict {code: 3D array}
         constituency_names: dict {code: name}
@@ -105,21 +116,28 @@ def build_constituency_joints(oac: dict) -> tuple[dict, dict]:
 
     oa_lookup = oac["oa_lookup"]
     assignments = oac["assignments"]
+
+    if oa_lookup is not None:
+        return _build_joints_with_lookup(oac)
+    else:
+        return _build_joints_national_fallback(oac)
+
+
+def _build_joints_with_lookup(oac: dict) -> tuple[dict, dict]:
+    """Full approach: per-constituency OAC cluster mixtures using OA lookup."""
+    oa_lookup = oac["oa_lookup"]
+    assignments = oac["assignments"]
     oa_demographics = oac["oa_demographics"]
 
-    # Identify London constituencies
     london_constituencies = _identify_london_constituencies(oa_lookup)
     logger.info("Identified %d London constituencies", len(london_constituencies))
 
-    # Method 1: OAC cluster mixture (captures covariance)
-    logger.info("Computing OAC cluster-level joint distributions...")
     cluster_level = _detect_cluster_column(assignments)
     cluster_joints = oac_data.compute_oac_cluster_covariance(
         oac["oa_input"], assignments, cluster_level
     )
     logger.info("Computed %d cluster joints", len(cluster_joints))
 
-    # Build constituency joints as weighted mixtures of cluster joints
     constituency_joints = {}
     constituency_names = {}
     for code, name in london_constituencies.items():
@@ -133,16 +151,122 @@ def build_constituency_joints(oac: dict) -> tuple[dict, dict]:
     logger.info("Built joint distributions for %d London constituencies",
                 len(constituency_joints))
 
-    # Also compute using direct OA aggregation (Method 2, for comparison)
+    # Also compute direct OA aggregation for comparison
     logger.info("Also computing direct OA-aggregated joints for comparison...")
     direct_joints = oac_data.compute_all_constituency_joints(
         oa_demographics, oa_lookup, list(london_constituencies.keys())
     )
-
-    # Save both for comparison
     _save_joint_comparison(constituency_joints, direct_joints, constituency_names)
 
     return constituency_joints, constituency_names
+
+
+def _build_joints_national_fallback(oac: dict) -> tuple[dict, dict]:
+    """
+    Fallback: use national OAC covariance for all London constituencies.
+
+    When the OA-constituency lookup is unavailable, we:
+    1. Compute the national joint distribution from all 239k OAs
+    2. Load London constituency names from mysociety data
+    3. Apply the national joint uniformly
+
+    This means constituency variation comes entirely from the MRP model's
+    demographic effects, not from constituency-specific demographic
+    compositions. The covariance structure (how age/tenure/NS-SEC
+    correlate) is still captured from the OAC data.
+    """
+    logger.info("Using NATIONAL FALLBACK: computing joint from all OAs")
+
+    # Compute national joint
+    national_joint = oac_data.compute_national_joint(oac["oa_input"])
+
+    # Get London constituencies from mysociety
+    try:
+        london_df = oac_data.load_london_constituencies_from_mysociety()
+    except Exception as exc:
+        logger.error("Cannot load London constituencies: %s", exc)
+        # Ultimate fallback: use hardcoded London constituency list
+        london_df = _hardcoded_london_constituencies()
+
+    constituency_joints = {}
+    constituency_names = {}
+    for _, row in london_df.iterrows():
+        code = row["PCON_CD"]
+        name = row["PCON_NM"]
+        if pd.notna(code):
+            constituency_joints[code] = national_joint.copy()
+            constituency_names[code] = name
+
+    logger.info(
+        "Applied national joint to %d London constituencies (fallback mode)",
+        len(constituency_joints),
+    )
+
+    # Save the national joint for inspection
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    _save_national_joint(national_joint)
+
+    return constituency_joints, constituency_names
+
+
+def _save_national_joint(joint: np.ndarray):
+    """Save the national joint distribution as a readable CSV."""
+    rows = []
+    for a_idx, age in enumerate(oac_data.AGE_CATEGORIES):
+        for t_idx, tenure in enumerate(oac_data.TENURE_CATEGORIES):
+            for n_idx, nssec in enumerate(oac_data.NSSEC_CATEGORIES):
+                rows.append({
+                    "age": age,
+                    "tenure": tenure,
+                    "nssec": nssec,
+                    "proportion": joint[a_idx, t_idx, n_idx],
+                })
+    pd.DataFrame(rows).to_csv(DATA_DIR / "national_joint_distribution.csv", index=False)
+
+
+def _hardcoded_london_constituencies() -> pd.DataFrame:
+    """Hardcoded list of London 2025 constituencies as ultimate fallback."""
+    constituencies = [
+        ("E14001073", "Barking"), ("E14001081", "Battersea"),
+        ("E14001082", "Beckenham and Penge"), ("E14001083", "Bermondsey and Old Southwark"),
+        ("E14001084", "Bethnal Green and Stepney"), ("E14001086", "Bexleyheath and Crayford"),
+        ("E14001094", "Brent East"), ("E14001095", "Brent West"),
+        ("E14001098", "Bromley and Biggin Hill"), ("E14001103", "Camberwell and Peckham"),
+        ("E14001106", "Carshalton and Wallington"), ("E14001110", "Chelsea and Fulham"),
+        ("E14001113", "Chingford and Woodford Green"), ("E14001114", "Chipping Barnet"),
+        ("E14001117", "Cities of London and Westminster"),
+        ("E14001132", "Croydon East"), ("E14001133", "Croydon South"),
+        ("E14001134", "Croydon West"), ("E14001136", "Dagenham and Rainham"),
+        ("E14001141", "Dulwich and West Norwood"), ("E14001143", "Ealing Central and Acton"),
+        ("E14001144", "Ealing North"), ("E14001145", "Ealing Southall"),
+        ("E14001146", "East Ham"), ("E14001149", "Edmonton and Winchmore Hill"),
+        ("E14001150", "Eltham and Chislehurst"), ("E14001151", "Enfield North"),
+        ("E14001153", "Erith and Thamesmead"), ("E14001157", "Feltham and Heston"),
+        ("E14001158", "Finchley and Golders Green"), ("E14001171", "Greenwich and Woolwich"),
+        ("E14001173", "Hackney North and Stoke Newington"), ("E14001174", "Hackney South and Shoreditch"),
+        ("E14001176", "Hammersmith and Chiswick"), ("E14001177", "Hampstead and Highgate"),
+        ("E14001180", "Harrow East"), ("E14001181", "Harrow West"),
+        ("E14001183", "Hayes and Harlington"), ("E14001185", "Hendon"),
+        ("E14001190", "Holborn and St Pancras"), ("E14001191", "Hornchurch and Upminster"),
+        ("E14001192", "Hornsey and Friern Barnet"), ("E14001194", "Hounslow West"),
+        ("E14001196", "Ilford North"), ("E14001197", "Ilford South"),
+        ("E14001198", "Islington North"), ("E14001199", "Islington South and Finsbury"),
+        ("E14001206", "Kensington and Bayswater"), ("E14001207", "Kingston and Surbiton"),
+        ("E14001215", "Lewisham East"), ("E14001216", "Lewisham North"),
+        ("E14001217", "Lewisham West and East Dulwich"), ("E14001218", "Leyton and Wanstead"),
+        ("E14001228", "Mitcham and Morden"), ("E14001250", "Old Bexley and Sidcup"),
+        ("E14001251", "Orpington"), ("E14001261", "Peckham"),  # placeholder
+        ("E14001263", "Poplar and Limehouse"), ("E14001266", "Putney"),
+        ("E14001268", "Queen's Park and Maida Vale"), ("E14001275", "Richmond Park"),
+        ("E14001278", "Romford"), ("E14001281", "Ruislip, Northwood and Pinner"),
+        ("E14001311", "Stratford and Bow"), ("E14001312", "Streatham and Croydon North"),
+        ("E14001318", "Sutton and Cheam"), ("E14001325", "Tooting"),
+        ("E14001327", "Tottenham"), ("E14001332", "Twickenham"),
+        ("E14001335", "Uxbridge and South Ruislip"), ("E14001337", "Vauxhall and Camberwell Green"),
+        ("E14001339", "Walthamstow"), ("E14001345", "West Ham and Beckton"),
+        ("E14001355", "Wimbledon"),
+    ]
+    return pd.DataFrame(constituencies, columns=["PCON_CD", "PCON_NM"])
 
 
 def _identify_london_constituencies(oa_lookup: pd.DataFrame) -> dict:
