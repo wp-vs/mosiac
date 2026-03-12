@@ -3,3 +3,6 @@ numpy>=1.24
 requests>=2.28
 ipfn>=1.4
 openpyxl>=3.1
+pyarrow>=14.0
+scipy>=1.10
+scikit-learn>=1.3
