@@ -1,0 +1,89 @@
+party,nssec,vote_pct,sample_n
+Conservative,Large employers & higher managerial,21.0,349
+Conservative,Higher professional,16.0,1891
+Conservative,"Lower managerial, admin & professional",15.0,3446
+Conservative,Intermediate occupations,16.0,1981
+Conservative,Small employers & own account workers,15.0,1792
+Conservative,Lower supervisory & technical,13.0,948
+Conservative,Semi-routine occupations,13.0,1947
+Conservative,Routine occupations,11.0,2102
+Labour,Large employers & higher managerial,16.0,349
+Labour,Higher professional,15.0,1891
+Labour,"Lower managerial, admin & professional",15.0,3446
+Labour,Intermediate occupations,12.0,1981
+Labour,Small employers & own account workers,10.0,1792
+Labour,Lower supervisory & technical,10.0,948
+Labour,Semi-routine occupations,11.0,1947
+Labour,Routine occupations,9.0,2102
+Liberal Democrat,Large employers & higher managerial,14.0,349
+Liberal Democrat,Higher professional,13.0,1891
+Liberal Democrat,"Lower managerial, admin & professional",11.0,3446
+Liberal Democrat,Intermediate occupations,8.0,1981
+Liberal Democrat,Small employers & own account workers,9.0,1792
+Liberal Democrat,Lower supervisory & technical,8.0,948
+Liberal Democrat,Semi-routine occupations,8.0,1947
+Liberal Democrat,Routine occupations,7.0,2102
+SNP,Large employers & higher managerial,1.0,349
+SNP,Higher professional,3.0,1891
+SNP,"Lower managerial, admin & professional",2.0,3446
+SNP,Intermediate occupations,2.0,1981
+SNP,Small employers & own account workers,2.0,1792
+SNP,Lower supervisory & technical,2.0,948
+SNP,Semi-routine occupations,2.0,1947
+SNP,Routine occupations,2.0,2102
+Plaid Cymru,Large employers & higher managerial,1.0,349
+Plaid Cymru,Higher professional,1.0,1891
+Plaid Cymru,"Lower managerial, admin & professional",1.0,3446
+Plaid Cymru,Intermediate occupations,1.0,1981
+Plaid Cymru,Small employers & own account workers,1.0,1792
+Plaid Cymru,Lower supervisory & technical,1.0,948
+Plaid Cymru,Semi-routine occupations,1.0,1947
+Plaid Cymru,Routine occupations,1.0,2102
+Reform UK,Large employers & higher managerial,17.0,349
+Reform UK,Higher professional,15.0,1891
+Reform UK,"Lower managerial, admin & professional",15.0,3446
+Reform UK,Intermediate occupations,18.0,1981
+Reform UK,Small employers & own account workers,28.0,1792
+Reform UK,Lower supervisory & technical,31.0,948
+Reform UK,Semi-routine occupations,25.0,1947
+Reform UK,Routine occupations,31.0,2102
+Green,Large employers & higher managerial,13.0,349
+Green,Higher professional,13.0,1891
+Green,"Lower managerial, admin & professional",12.0,3446
+Green,Intermediate occupations,10.0,1981
+Green,Small employers & own account workers,8.0,1792
+Green,Lower supervisory & technical,8.0,948
+Green,Semi-routine occupations,10.0,1947
+Green,Routine occupations,9.0,2102
+Other,Large employers & higher managerial,0.0,349
+Other,Higher professional,1.0,1891
+Other,"Lower managerial, admin & professional",2.0,3446
+Other,Intermediate occupations,1.0,1981
+Other,Small employers & own account workers,2.0,1792
+Other,Lower supervisory & technical,1.0,948
+Other,Semi-routine occupations,2.0,1947
+Other,Routine occupations,1.0,2102
+Would not vote,Large employers & higher managerial,4.0,349
+Would not vote,Higher professional,7.0,1891
+Would not vote,"Lower managerial, admin & professional",9.0,3446
+Would not vote,Intermediate occupations,11.0,1981
+Would not vote,Small employers & own account workers,10.0,1792
+Would not vote,Lower supervisory & technical,11.0,948
+Would not vote,Semi-routine occupations,12.0,1947
+Would not vote,Routine occupations,14.0,2102
+Don't know,Large employers & higher managerial,12.0,349
+Don't know,Higher professional,14.0,1891
+Don't know,"Lower managerial, admin & professional",14.0,3446
+Don't know,Intermediate occupations,17.0,1981
+Don't know,Small employers & own account workers,12.0,1792
+Don't know,Lower supervisory & technical,14.0,948
+Don't know,Semi-routine occupations,13.0,1947
+Don't know,Routine occupations,11.0,2102
+Refused,Large employers & higher managerial,1.0,349
+Refused,Higher professional,3.0,1891
+Refused,"Lower managerial, admin & professional",3.0,3446
+Refused,Intermediate occupations,4.0,1981
+Refused,Small employers & own account workers,2.0,1792
+Refused,Lower supervisory & technical,3.0,948
+Refused,Semi-routine occupations,4.0,1947
+Refused,Routine occupations,4.0,2102
